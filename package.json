@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "npx webpack build",
+    "watch": "npx webpack watch"
+
   },
   "repository": {
     "type": "git",
