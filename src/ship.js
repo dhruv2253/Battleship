@@ -1,6 +1,6 @@
 const ship = function(length) {
     let hits = 0;
-    let sunk = false;
+   
     const hit = function()  {
         if (this.isSunk() == false) {
             this.hits++;
@@ -9,17 +9,11 @@ const ship = function(length) {
     }
 
     const isSunk = function() {
-        if (length == hits) {
-            this.sunk = true;
-            
-        } else {
-            this.sunk = false;
-        }
-        return this.sunk;
+        return this.hits >= this.length;
     }
 
 
-    return {length, hit, hits, sunk, isSunk};
+    return {length, hit, hits, isSunk};
 
 }
 
