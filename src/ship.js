@@ -1,24 +1,25 @@
-const ship = function(length, hits, sunk) {
-    const hit = () =>  {
-        if (isSunk == false) {
-            hits++;
-        }
-       
-        return hits;
-
+const ship = function(length) {
+    let hits = 0;
+    let sunk = false;
+    const hit = function()  {
+        if (this.isSunk() == false) {
+            this.hits++;
+        }   
+        
     }
 
-    const isSunk = () => {
+    const isSunk = function() {
         if (length == hits) {
-            sunk = true;
+            this.sunk = true;
             
         } else {
-            sunk = false;
+            this.sunk = false;
         }
-        return sunk;
+        return this.sunk;
     }
 
-    return {length, hit, isSunk};
+
+    return {length, hit, hits, sunk, isSunk};
 
 }
 
