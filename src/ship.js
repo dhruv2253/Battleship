@@ -1,4 +1,4 @@
-const ship = function(length) {
+const Ship = function(length) {
     let hits = 0;
    
     const hit = function()  {
@@ -18,4 +18,4 @@ const ship = function(length) {
 }
 
 
-export default ship;
+export default Ship;
