@@ -7,3 +7,10 @@ test('Board is created with given size', () => {
     expect(obj.board.length).toBe(7);
 })
 
+test('new ship is added to shipsOnBoard', () => {
+    const obj = Gameboard();
+    const ship = Ship(3);
+    obj.placeShip(2,2,ship);
+    expect(obj.shipsOnBoard.length).toBe(1);
+})
+
