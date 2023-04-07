@@ -14,3 +14,10 @@ test('new ship is added to shipsOnBoard', () => {
     expect(obj.shipsOnBoard.length).toBe(1);
 })
 
+test('ships cannot overlap', () => {
+    const obj = Gameboard();
+    const ship = Ship(3);
+    const ship2 = Ship(3);
+    obj.placeShip(2,2,ship);
+    expect(obj.placeShip(1,2,ship2)).toBe(true);
+});
