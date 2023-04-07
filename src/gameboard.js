@@ -1,7 +1,7 @@
 import Ship from './ship.js'
 
 // check if board cell is empty or has ship
-const cellContent = function(x, y) {
+const cellContent = function() {
     let ship = null;
     let triedHit = false;
 
@@ -18,7 +18,7 @@ const Gameboard = function() {
         for (let i = 0; i < size; i++) {
             board[i] = [];
             for (let j = 0; j < size; j++) {
-                board[i][j] = null;
+                board[i][j] = cellContent();
             }
         }
         return board;
@@ -46,26 +46,20 @@ const Gameboard = function() {
 
         // check overlapping 
         for (let i = 0; i < newShip.length; i++) {
-            const cell = cellContent(shipStartX + i, shipStartY);
-            if (cell.ship) {
+            if (this.board[shipStartX + i][shipStartY].ship) {
                 return false;
             }
         }
         
-
-                // set ship property of each cell to the newShip object
-        for (let i = 0; i < newShip.length; i++) {
-            const cell = cellContent(shipStartX + i, shipStartY);
-            cell.ship = newShip;
-        }
+        
 
         shipsOnBoard.push(newShip);
+        for (let i = 0; i < newShip.length; i++) {
+            this.board[shipStartX + i][shipStartY] = newShip;
+        }
+        
+
         return true;
-        
-        
-        
-
-
 
 
     }
