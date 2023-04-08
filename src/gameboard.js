@@ -36,12 +36,15 @@ const Gameboard = function() {
         // coordinates of ship to place
         let startOfShip = [x,y];
        
+        // if ship placement is set to horizontal
         if (vertical === false) {
+
+            // check if the ship being placed will fit on the board horizontally.
             if (x + newShip.length-1 >= 7) {
                 startOfShip = [7-newShip.length, y];
             }
             
-    
+            // starting x and y of ship
             let shipStartX = startOfShip[0];
             let shipStartY = startOfShip[1];
     
@@ -53,17 +56,23 @@ const Gameboard = function() {
             }
             
             
-    
+            // push ship to the ships on board arr
             shipsOnBoard.push(newShip);
+
+            // add ship to coordinate
             for (let i = 0; i < newShip.length; i++) {
                 board[shipStartX + i][shipStartY].ship = newShip;
             }
             
+            // if set to vertical
         } else {
+            // make sure ship to add fits onto board vertically
             if (y + newShip.length-1 >= 7) {
                 startOfShip = [x, 7-newShip.length];
             }
 
+
+            // coords
             let shipStartX = startOfShip[0];
             let shipStartY = startOfShip[1];
 
@@ -74,8 +83,11 @@ const Gameboard = function() {
                 }
             }
             
+            // push to array
             shipsOnBoard.push(newShip);
 
+        
+            // add ship to coord
             for (let i = 0; i < newShip.length; i++) {
                 board[shipStartY+i][shipStartX].ship = newShip;
             }
