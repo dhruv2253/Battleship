@@ -60,7 +60,15 @@ test('Attack is received', () => {
     obj.placeShip(1,0,ship);
     expect(obj.receiveAttack(1,0)).toBe(true);
 })
-    
+
+test('All ships have been sunk', () => {
+    const obj = new Gameboard();
+    const ship = new Ship(1); 
+    obj.placeShip(1,0,ship);
+    obj.receiveAttack(1,0);
+    console.log(obj.board);
+    expect(obj.allSunk()).toBe(true);
+})
 
 
 
