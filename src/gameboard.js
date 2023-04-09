@@ -103,13 +103,33 @@ const Gameboard = function() {
     }
         
     // receive attack func
-        // keep track of missed
+    const receiveAttack = function(x, y) {
+        // location of the attack
+        let attack = board[x][y];
+
+        // if the location is already tried, return false
+        if (attack.tried) {
+            return false;
+        }
+
+        // if it was not tried, return true now that it has been attacked
+        attack.tried = true;
+
+        // if there is a ship at the location, hit it
+        if(attack.ship !== null) {
+            // hit ship
+            attack.ship.hit();
+        }
+
+        return true;
+    }
+        
 
 
     // all ships sunk check
 
 
-    return {board, placeShip, shipsOnBoard}
+    return {board, placeShip, shipsOnBoard, receiveAttack}
 
 }
 
