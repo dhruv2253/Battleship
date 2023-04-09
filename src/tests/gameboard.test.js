@@ -39,12 +39,28 @@ test('ships cannot overlap, with rotation', () => {
     const ship = new Ship(3);
     const ship2 = new Ship(3);
     obj.placeShip(1,0,ship);
-    console.log(obj.board);
     expect(obj.placeShip(0,1,ship2, true)).toBe(false);
+  
+})
+
+
+test('ships can be added, with rotation', () => {
+    const obj = new Gameboard();
+    const ship = new Ship(3);
+    const ship2 = new Ship(3);
+    obj.placeShip(1,0,ship);
+    obj.placeShip(5,3,ship2, true);
     console.log(obj.board);
 })
 
 
+test('Attack is received', () => {
+    const obj = new Gameboard();
+    const ship = new Ship(3);  
+    obj.placeShip(1,0,ship);
+    expect(obj.receiveAttack(1,0)).toBe(true);
+})
+    
 
 
 
