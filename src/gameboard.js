@@ -128,18 +128,7 @@ const Gameboard = function() {
 
     // all ships sunk check
     const allSunk = function() {
-        let allShipsSunk = false;
-        shipsOnBoard.forEach((ship) => {
-            if (ship.isSunk()) {
-                allShipsSunk = true;
-            }
-        })
-        
-        if (allShipsSunk) {
-            return true;
-        } else {
-            return false;
-        }
+        return shipsOnBoard.every(ship => ship.isSunk());
     }
 
 
