@@ -108,28 +108,42 @@ const Gameboard = function() {
         let attack = board[x][y];
 
         // if the location is already tried, return false
-        if (attack.tried) {
+        if (attack.triedHit) {
             return false;
         }
 
         // if it was not tried, return true now that it has been attacked
-        attack.tried = true;
+        attack.triedHit = true;
 
         // if there is a ship at the location, hit it
         if(attack.ship !== null) {
             // hit ship
             attack.ship.hit();
+         
         }
 
         return true;
     }
-        
-
+    
 
     // all ships sunk check
+    const allSunk = function() {
+        let allShipsSunk = false;
+        shipsOnBoard.forEach((ship) => {
+            if (ship.isSunk()) {
+                allShipsSunk = true;
+            }
+        })
+        
+        if (allShipsSunk) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
-    return {board, placeShip, shipsOnBoard, receiveAttack}
+    return {board, placeShip, shipsOnBoard, receiveAttack, allSunk}
 
 }
 
