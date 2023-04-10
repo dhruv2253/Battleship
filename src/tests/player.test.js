@@ -11,3 +11,21 @@ test('attacking each other works ', () => {
   
 })
 
+test('attacking can hit ships', () => {
+    const player = new Player();
+    const ai = new Player();
+    const ship = new Ship(1);
+    player.opp = ai;
+    ai.opp = player;
+    player.gameboard.placeShip(0,0, ship);
+    
+    ai.aiAttack(1);
+    
+    expect(player.gameboard.allSunk()).toBe(true);
+
+
+
+})
+
+
+
