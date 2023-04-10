@@ -2,7 +2,7 @@ import Gameboard from "../gameboard.js";
 import Ship from '../ship.js';
 import Player from '../player.js';
 
-test('attack successful', () => {
+test('attacking each other works ', () => {
     const player1 = new Player();
     const player2 = new Player();
     player1.opp = player2;
