@@ -19,12 +19,14 @@ const Player = function() {
     }
 
     // commence ai attack on player
-    const aiAttack = function() {
+    const aiAttack = function(n) {
 
         // randomize coordinates
-         x = Math.floor(Math.random() * 7);
-         y = Math.floor(Math.random() * 7);
+         let x = Math.floor(Math.random() * n);
+         let y = Math.floor(Math.random() * n);
 
+         console.log(x)
+         console.log(y)
          //attack player board using gameboard's function receive attack
          return this.opp.gameboard.receiveAttack(x,y);
     }
