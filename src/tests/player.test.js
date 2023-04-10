@@ -8,5 +8,6 @@ test('attacking each other works ', () => {
     player1.opp = player2;
     player1.playerAttack(6, 6);
     expect(player2.gameboard.board[6][6].triedHit).toBe(true);
-    console.log(player2.gameboard.board);
+  
 })
+

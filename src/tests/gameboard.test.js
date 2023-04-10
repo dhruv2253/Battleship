@@ -66,7 +66,6 @@ test('All ships have been sunk', () => {
     const ship = new Ship(1); 
     obj.placeShip(1,0,ship);
     obj.receiveAttack(1,0);
-    console.log(obj.board);
     expect(obj.allSunk()).toBe(true);
 })
 
