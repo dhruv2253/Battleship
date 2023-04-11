@@ -2,7 +2,7 @@ import Ship from './ship.js'
 import Gameboard from './gameboard.js'
 
 
-const Player = function() {
+const Player = function () {
     // gameboard
     const gameboard = new Gameboard();
 
@@ -10,40 +10,46 @@ const Player = function() {
     const opp = null;
 
     // commence player's attack on computer
-    const playerAttack = function(x,y) {
-        
-        // use gameboard's function receiveAttack
-        return this.opp.gameboard.receiveAttack(x,y);
-            
+    const attack = function(x, y) {
 
+        // use gameboards function  receiveAttack
+        return this.opp.gameboard.receiveAttack(x, y);
     }
-    // Set to keep track of already attacked coordinates
+
+    // create randomizer function that will be a parameter for ai attack.
+    // for testing purposes
+    const random = function(n) {
+
+        // return a random number between 0, n
+        return Math.floor(Math.random() * n);
+        
+    }
+
+    // set that keeps track of all coords ai attacks
     const alreadyAttacked = new Set();
-    // TODO: ai should not attack same spot more than once
+
     // commence ai attack on player
-    const aiAttack = function(n) {
-        // randomize coordinates
-        let x = Math.floor(Math.random() * n);
-        let y = Math.floor(Math.random() * n);
-        console.log("x:" + x)
-        console.log("y:" + y)
-        // check if already attacked or out of bounds
+    const aiAttack = function(r= random) {
+        // random coordinates
+        let x = r(7);
+        let y = r(7);
+
+        // if the coord to attack has not been added to set, attack it
         if(!alreadyAttacked.has(this.opp.gameboard.board[x][y])) {
-            this.playerAttack(x,y)
+            // attack location
+            attack.call(this, x, y)
+            // add this location to the set, since it has been attacked
             alreadyAttacked.add(this.opp.gameboard.board[x][y]);
             return [x, y];
         }
         else{
-            this.aiAttack(n);
+            // if it has been attacked, recall the function
+            aiAttack.call(this, r);
         }
-    };
+    }
     
-
-
-    
-    return {gameboard, playerAttack, aiAttack, opp}
-    
-
+    return {gameboard, opp, attack, aiAttack};
 }
+
 
 export default Player;
