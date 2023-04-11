@@ -2,46 +2,53 @@ import Gameboard from "../gameboard.js";
 import Ship from '../ship.js';
 import Player from '../player.js';
 
-test('attacking each other works ', () => {
+test('Attacking each other works', () => {
     const player1 = new Player();
     const player2 = new Player();
+
     player1.opp = player2;
-    player1.playerAttack(6, 6);
-    expect(player2.gameboard.board[6][6].triedHit).toBe(true);
-  
+
+    player1.attack(0, 1);
+    expect(player2.gameboard.board[0][1].triedHit).toBe(true);
 })
 
-test('attacking can hit ships', () => {
+test('AI attacks can hit ship', () => {
     const player = new Player();
     const ai = new Player();
-    const ship = new Ship(1);
+    const ship = Ship(1);
+
     player.opp = ai;
     ai.opp = player;
-    player.gameboard.placeShip(0,0, ship);
-    
-    ai.aiAttack(1);
-    
-    expect(player.gameboard.allSunk()).toBe(true);
 
+    player.gameboard.placeShip(3,3,ship);
 
+    const mockRandomizer = jest.fn().mockReturnValue(3);
 
-})
-
-test('ai attacks are randomly hitting', () => {
-    const player = new Player();
-    const ai = new Player();
-    const ship = new Ship(1);
-    player.opp = ai;
-    ai.opp = player;
-    player.gameboard.placeShip(2,2, ship);
-    
-    
-    ai.aiAttack(2);
-    ai.aiAttack(2);
-    
+    ai.aiAttack(mockRandomizer);
     expect(player.gameboard.allSunk()).toBe(true);
 })
 
+test('AI will not hit the same spot twice', () => {
+    const player = new Player();
+    const ai = new Player();
+    const ship = new Ship(1);
+
+    player.opp = ai;
+    ai.opp = player;
+
+    player.gameboard.placeShip(4,4,ship);
+
+    const mockRandomizer = jest.fn()
+
+    .mockReturnValueOnce(2)
+    .mockReturnValueOnce(2)
+    .mockReturnValue(4);
+
+    ai.aiAttack(mockRandomizer);
+    ai.aiAttack(mockRandomizer);
+
+    expect(player.gameboard.allSunk()).toBe(true);
+})
 
 
 
