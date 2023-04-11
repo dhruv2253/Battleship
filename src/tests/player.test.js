@@ -27,5 +27,23 @@ test('attacking can hit ships', () => {
 
 })
 
+test('ai attacks are randomly hitting', () => {
+    const player = new Player();
+    const ai = new Player();
+    const ship = new Ship(1);
+    player.opp = ai;
+    ai.opp = player;
+    player.gameboard.placeShip(2,2, ship);
+    
+    
+    ai.aiAttack(2);
+    ai.aiAttack(2);
+    
+    expect(player.gameboard.allSunk()).toBe(true);
+})
+
+
+
+
 
 

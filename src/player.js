@@ -17,19 +17,28 @@ const Player = function() {
             
 
     }
-
+    // Set to keep track of already attacked coordinates
+    const alreadyAttacked = new Set();
+    // TODO: ai should not attack same spot more than once
     // commence ai attack on player
     const aiAttack = function(n) {
-
         // randomize coordinates
-         let x = Math.floor(Math.random() * n);
-         let y = Math.floor(Math.random() * n);
+        let x = Math.floor(Math.random() * n);
+        let y = Math.floor(Math.random() * n);
+        console.log("x:" + x)
+        console.log("y:" + y)
+        // check if already attacked or out of bounds
+        if(!alreadyAttacked.has(this.opp.gameboard.board[x][y])) {
+            this.playerAttack(x,y)
+            alreadyAttacked.add(this.opp.gameboard.board[x][y]);
+            return [x, y];
+        }
+        else{
+            this.aiAttack(n);
+        }
+    };
+    
 
-         console.log(x)
-         console.log(y)
-         //attack player board using gameboard's function receive attack
-         return this.opp.gameboard.receiveAttack(x,y);
-    }
 
     
     return {gameboard, playerAttack, aiAttack, opp}

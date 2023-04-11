@@ -105,10 +105,12 @@ const Gameboard = function() {
     // receive attack func
     const receiveAttack = function(x, y) {
         // location of the attack
-        let attack = board[x][y];
+        let attack = this.board[x][y];
+
+        
 
         // if the location is already tried, return false
-        if (attack.triedHit) {
+        if (!attack || attack.triedHit) {
             return false;
         }
 
