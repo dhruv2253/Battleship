@@ -45,7 +45,27 @@ const createGame = function () {
         }
     }
 
-    return {createUserBoard}
+    // Function that creates the ai board and fills with squares containing datasets
+    const createAiBoard = function () {
+        for (let rows = 0; rows< ai.gameboard.board.length; rows++) {
+            for (let cols = 0; cols< ai.gameboard.board[rows].length; cols++) {
+                // create div square
+                const gridSquare = document.createElement('div');
+                gridSquare.classList.add('grid-square');
+
+                // set data of grid squares to be equal to the (row, col)
+                gridSquare.dataset.x = cols;
+                gridSquare.dataset.y = rows;
+
+                aiBoard.appendChild(gridSquare);
+            }
+        }
+    }
+
+    
+
+
+    return {createUserBoard, createAiBoard}
 }
 
 
