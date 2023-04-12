@@ -14,6 +14,11 @@
     
 }
 
+.boards {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .grid-square {
     border: 1px solid;
     
