@@ -63,7 +63,9 @@ const createGame = function () {
         }
     }
 
+    // Place ai ships onto board at set location
     const placeAiShips = function() {
+    
         const aiShip1 = new Ship(3);
         const aiShip2 = new Ship(4);
         const aiShip3 = new Ship(5);
@@ -72,12 +74,15 @@ const createGame = function () {
         ai.gameboard.placeShip(2,4, aiShip2);
         ai.gameboard.placeShip(5,0, aiShip3, true);
 
+        // render ships at locations
         renderShips(ai);
     }
 
 
     // render ships onto board
     const renderShips = function(player) {
+
+        // select which player's squares to render
         let squares;
         if (player == user) {
              squares = document.querySelectorAll('.grid-square');
@@ -85,17 +90,23 @@ const createGame = function () {
             squares = document.querySelectorAll('.ai-grid-square');
         }
 
+        // add classes to squares based on what they contain
         squares.forEach(square => {
+            // coordinate of square related to gameboard
             let squareStatus = player.gameboard.board[parseInt(square.dataset.x)][parseInt(square.dataset.y)];
 
+            // add ship class to square if square is null
             if (squareStatus.ship != null) {
                 square.classList.add('ship');
+
+                // if there is a ship at the location and location has already been tried, add "damaged" class
                 if (squareStatus.triedHit) {
                     square.classList.remove('ship');
                     square.classList.add('damaged');
                 }
             }
             else {
+                // square has nothing but a triedHit, add "miss" class to square
                 if (squareStatus.triedHit) {
                     square.classList.add('miss');
                 }
