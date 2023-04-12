@@ -5,20 +5,16 @@
 }
 
 .user-board, .ai-board {
-    display: grid;
-    border: 1px solid;
-    height: 500px;
-    width: 500px;
-    background-color: white;
+    display : grid;
+
+    height: 400px;
+    width: 400px;
+
+    grid-template-columns: repeat(7, 1fr);
     
 }
 
 .grid-square {
-    margin: 0;
-    border: 4px black;
-    box-sizing: border-box;
-    border-color: black;
-    height: auto;
-    width: auto;
+    border: 1px solid;
     
 }
