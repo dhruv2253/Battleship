@@ -39,7 +39,7 @@ const createGame = function () {
                 // set data of grid squares to be equal to the (row, col)
                 gridSquare.dataset.x = cols;
                 gridSquare.dataset.y = rows;
-
+                gridSquare.textContent = `${cols}, ${rows}`
                 userBoard.appendChild(gridSquare);
             }
         }
@@ -56,6 +56,7 @@ const createGame = function () {
                 // set data of grid squares to be equal to the (row, col)
                 gridSquare.dataset.x = cols;
                 gridSquare.dataset.y = rows;
+                gridSquare.textContent = `${cols}, ${rows}`
 
                 aiBoard.appendChild(gridSquare);
             }
