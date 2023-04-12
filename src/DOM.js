@@ -58,10 +58,23 @@ const createGame = function () {
                 aiGridSquare.dataset.y = rows;
                 aiGridSquare.textContent = `${cols}, ${rows}`
 
-                aiBoard.appendChild(gridSquare);
+                aiBoard.appendChild(aiGridSquare);
             }
         }
     }
+
+    const placeAiShips = function() {
+        const aiShip1 = new Ship(3);
+        const aiShip2 = new Ship(4);
+        const aiShip3 = new Ship(5);
+
+        ai.gameboard.placeShip(0,0, aiShip1);
+        ai.gameboard.placeShip(2,4, aiShip2);
+        ai.gameboard.placeShip(5,0, aiShip3, true);
+
+        renderShips(ai);
+    }
+
 
     // render ships onto board
     const renderShips = function(player) {
@@ -97,7 +110,7 @@ const createGame = function () {
     
 
 
-    return {createUserBoard, createAiBoard, renderShips}
+    return {createUserBoard, createAiBoard, renderShips, placeAiShips}
 }
 
 
