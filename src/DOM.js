@@ -50,23 +50,54 @@ const createGame = function () {
         for (let rows = 0; rows< ai.gameboard.board.length; rows++) {
             for (let cols = 0; cols< ai.gameboard.board[rows].length; cols++) {
                 // create div square
-                const gridSquare = document.createElement('div');
-                gridSquare.classList.add('grid-square');
+                const aiGridSquare = document.createElement('div');
+                aiGridSquare.classList.add('ai-grid-square');
 
                 // set data of grid squares to be equal to the (row, col)
-                gridSquare.dataset.x = cols;
-                gridSquare.dataset.y = rows;
-                gridSquare.textContent = `${cols}, ${rows}`
+                aiGridSquare.dataset.x = cols;
+                aiGridSquare.dataset.y = rows;
+                aiGridSquare.textContent = `${cols}, ${rows}`
 
                 aiBoard.appendChild(gridSquare);
             }
         }
     }
 
+    // render ships onto board
+    const renderShips = function(player) {
+        let squares;
+        if (player == user) {
+             squares = document.querySelectorAll('.grid-square');
+        } else {
+            squares = document.querySelectorAll('.ai-grid-square');
+        }
+
+        squares.forEach(square => {
+            let squareStatus = player.gameboard.board[parseInt(square.dataset.x)][parseInt(square.dataset.y)];
+
+            if (squareStatus.ship != null) {
+                square.classList.add('ship');
+                if (squareStatus.triedHit) {
+                    square.classList.remove('ship');
+                    square.classList.add('damaged');
+                }
+            }
+            else {
+                if (squareStatus.triedHit) {
+                    square.classList.add('miss');
+                }
+            }
+        })
+
+    }
+
+
+    
+
     
 
 
-    return {createUserBoard, createAiBoard}
+    return {createUserBoard, createAiBoard, renderShips}
 }
 
 
