@@ -21,9 +21,20 @@
     flex-direction: column;
     height: 150px;
     width: 200px;
-   
+    margin-bottom: 20px;
+
 
     
+}
+
+.rotate {
+    margin-bottom: 10px;
+}
+
+.status {
+    text-align: center;
+    font-size: 40px;
+    padding: 10px;
 }
 
 /* CSS */
