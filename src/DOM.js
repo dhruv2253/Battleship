@@ -132,6 +132,9 @@ const createGame = function () {
 
     }
 
+    const endGame = function(win) {
+        status.textContent = win===user? 'You won!' : "You lost!";
+    }
     
 
 
