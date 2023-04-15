@@ -1,5 +1,8 @@
 :root {
     background-color: grey;
+    overflow: hidden;
+    background-color: #111111;
+
 }
 
 .title {
@@ -9,7 +12,7 @@
 }
 
 
-.container {
+.container2 {
     display: flex;
     justify-content: center;
    
@@ -35,6 +38,7 @@
     text-align: center;
     font-size: 40px;
     padding: 10px;
+    margin-top: 10px;
 }
 
 /* CSS */
@@ -101,14 +105,15 @@ button:disabled {
 .user-board, .ai-board {
     display : grid;
     background-color: white;
-    height: 400px;
-    width: 400px;
+    height: 450px;
+    width: 450px;
 
     grid-template-columns: repeat(7, 1fr);
     
 }
 
 .boards {
+    margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -118,4 +123,42 @@ button:disabled {
 .grid-square, .ai-grid-square {
     border: 1px solid;
     
+}
+
+
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  
+}
+
+.container {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+ 
+}
+
+.heading {
+    font-size: 72px;
+}
+
+.fancy {
+  text-shadow: 4px 4px 0px #3F7FBF;
+  mix-blend-mode: screen;
+  animation: fadeIn 2.5s linear forwards;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
