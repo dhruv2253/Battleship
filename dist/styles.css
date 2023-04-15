@@ -169,7 +169,7 @@ body {
   background-color: white;
 }
 
-.ship {
+.user-board > .ship {
   background-color: orange;
 }
 
