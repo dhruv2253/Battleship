@@ -312,12 +312,14 @@ const createGame = function () {
         let ship = ships[shipNum];
 
         let placed = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
+        console.log(shipNum);
         renderShips(user); 
+        console.log(ships.length)
         shipNum++;
        
 
         // if all ships have been placed, remove event listeners
-        if (shipNum > ships.length) {
+        if (shipNum+1 > ships.length) {
             const squares = document.querySelectorAll('.grid-square');
 
             squares.forEach(square => {
