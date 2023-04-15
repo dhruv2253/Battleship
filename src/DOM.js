@@ -282,7 +282,17 @@ const createGame = function () {
 
     }
 
-    
+    const choosePlaceShip = function() {
+        const squares = document.querySelectorAll(".grid-square");
+        squares.forEach(square => {
+            // mouseover to see if ship's placeable at location
+            square.addEventListener('mouseover', shipHover);
+            
+            // click to place ship at location
+            square.addEventListener('click', placeShip);
+        })
+    }
+
     // TODO: function to start game
     const startGame = function() {
         createUserBoard();
