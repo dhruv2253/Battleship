@@ -172,3 +172,11 @@ body {
 .ship {
   background-color: orange;
 }
+
+.damaged{
+  background-color: red;
+}
+
+.miss {
+  background-color: white;
+}
