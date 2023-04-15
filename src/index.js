@@ -9,7 +9,6 @@ content.createAiBoard();
 content.createUserBoard();
 
 newGameButton.addEventListener('click', () => {
-    newGameButton.textContent = 'New Game'
     content.startGame();
 })
 

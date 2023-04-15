@@ -78,7 +78,7 @@ const Gameboard = function() {
 
             // check overlapping 
             for (let i = 0; i < newShip.length; i++) {
-                if (board[shipStartY+i][shipStartX].ship) {
+                if (board[shipStartX][shipStartY+i].ship) {
                     return false;
                 }
             }
@@ -89,7 +89,7 @@ const Gameboard = function() {
         
             // add ship to coord
             for (let i = 0; i < newShip.length; i++) {
-                board[shipStartY+i][shipStartX].ship = newShip;
+                board[shipStartX][shipStartY+i].ship = newShip;
             }
 
             

@@ -271,7 +271,7 @@ const createGame = function () {
 
         // check overlapping 
         for (let i = 0; i < l; i++) {
-            if (user.gameboard.board[shipStartY+i][shipStartX].ship) {
+            if (user.gameboard.board[shipStartX][shipStartY+i].ship) {
                 e.target.classList.add('invalid');
                     e.target.addEventListener('mouseout', () => {
                         e.target.classList.remove('invalid');
@@ -286,7 +286,8 @@ const createGame = function () {
             squares.forEach(square => { 
 
                 // add to placeables
-                if (square.dataset.x === startingX && square.dataset.y === startingY + i) {
+                if (square.dataset.x === (shipStartX)+"" && square.dataset.y === (shipStartY + i)+"") {
+                    square.classList.add('placeable');
                     placeables.add(square);
                 }
 
@@ -311,7 +312,7 @@ const createGame = function () {
 
         let ship = ships[shipNum];
 
-        let placed = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
+        let placed = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, vertical);
         console.log(shipNum);
         renderShips(user); 
         console.log(ships.length)
@@ -356,9 +357,11 @@ const createGame = function () {
     // TODO: function to start game
 
     const startGame = function() {
-
+        
+        newGameButton.style.visiblity = 'hidden';
         rotateButton.addEventListener('click', () => {
             vertical = vertical? false: true;
+            console.log(vertical);
         })
         
         status.textContent = `Place your ${ships[shipNum].length} length ship`;
