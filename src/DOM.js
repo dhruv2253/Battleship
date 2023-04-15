@@ -28,6 +28,8 @@ const createGame = function () {
 
     let shipNum = 0;
 
+    let vertical = false;
+
 
 
     
@@ -234,7 +236,7 @@ const createGame = function () {
                 squares.forEach(square => { 
 
                     // add to placeables
-                    if (square.dataset.x === startingX && square.dataset.y === startingY) {
+                    if (square.dataset.x === shipStartX && square.dataset.y === shipStartY) {
                         placeables.add(square);
                     }
 
@@ -319,7 +321,7 @@ const createGame = function () {
             });
 
             rotateButton.style.visiblity = 'hidden';
-            startGame();
+            beginBattle();
         }
 
 
@@ -336,14 +338,24 @@ const createGame = function () {
         })
     }
 
-    // TODO: function to start game
-    const startGame = function() {
-        createUserBoard();
-        createAiBoard();
-        choosePlaceShip();
-        
+    const beginBattle = function() {
+        status.textContent = 'Strike the enemy!'
+        userAttack(user);
     }
 
-    return {createUserBoard, createAiBoard, renderShips, placeAiShips, startGame}
+    // TODO: function to start game
+
+    const startGame = function() {
+        newGameButton.textContent = "Start Game"
+        rotateButton.addEventListener('click', () => {
+            vertical = vertical? false: true;
+        })
+        
+        status.textContent = `Place your ${ships[shipNum].length} length ship`;
+        placeAiShips();
+        choosePlaceShip();
+    }
+
+    return {createUserBoard, createAiBoard, startGame}
 }
 export default createGame;
