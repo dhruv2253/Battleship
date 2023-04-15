@@ -4,7 +4,7 @@ import Player from "./player";
 import Ship from "./ship";
 
 const rotateButton = document.querySelector('.rotate');
-const newGameButton = document.querySelector('.new-game');
+
 const userBoard = document.querySelector('.user-board');
 const aiBoard = document.querySelector('.ai-board');
 const status = document.querySelector('.status');
@@ -335,7 +335,7 @@ const createGame = function () {
                 square.removeEventListener('click', placeShip);
             });
 
-            rotateButton.style.visiblity = 'hidden';
+            rotateButton.style.visibility = 'hidden';
             beginBattle();
         }
         else {
@@ -364,8 +364,8 @@ const createGame = function () {
     // TODO: function to start game
 
     const startGame = function() {
-        
-        newGameButton.style.visiblity = 'hidden';
+        const newGameButton = document.querySelector('.new-game');
+        newGameButton.style.visibility = 'hidden';
         rotateButton.addEventListener('click', () => {
             vertical = vertical? false: true;
             console.log(vertical);
@@ -375,6 +375,7 @@ const createGame = function () {
         placeAiShips();
         choosePlaceShip();
     }
+
 
     return {createUserBoard, createAiBoard, startGame}
 }
