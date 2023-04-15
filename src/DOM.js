@@ -76,7 +76,7 @@ const createGame = function () {
         const aiShip3 = new Ship(5);
 
         ai.gameboard.placeShip(0,0, aiShip1);
-        ai.gameboard.placeShip(2,4, aiShip2);
+        ai.gameboard.placeShip(1,4, aiShip2);
         ai.gameboard.placeShip(5,0, aiShip3, true);
 
         // render ships at locations
@@ -194,6 +194,13 @@ const createGame = function () {
     // Method for displaying who won
     const endGame = function(win) {
         status.textContent = win===user? 'You won!' : "You lost!";
+        const squares = document.querySelectorAll('.grid-square');
+
+        squares.forEach(square => {
+            square.removeEventListener('mouseover', shipHover);
+            square.removeEventListener('click', placeShip);
+        });
+
     }
     
     const shipHover = function(e) {
