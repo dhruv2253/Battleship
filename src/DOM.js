@@ -144,14 +144,14 @@ const createGame = function () {
 
     }
 
-    const userAttack = function(player) {
+    const userAttack = function(player, aiPlaying=true) {
         const opponent = player.opp;
-
+        
         const oppSquare = opponent == user? '.grid-square': '.ai-grid-square';
         const squares = document.querySelectorAll(oppSquare);
         
         squares.forEach(square => {
-            square.addEventListener('click', (e) => {
+            square.addEventListener('click', () => {
                 if (whoseTurn === opponent) {
                     return;
                 }
@@ -180,7 +180,10 @@ const createGame = function () {
 
                 if (attack === true) {
                     whoseTurn = opponent;
-                    AiTurn();
+                    if (aiPlaying === true) {
+                        AiTurn();
+                    }
+                  
                 } 
 
             })
@@ -196,7 +199,7 @@ const createGame = function () {
     const shipHover = function(e) {
 
         // length of ship using the array of ships that are going to be added to board
-        let length = ships[shipNum].length;
+        let l = ships[shipNum].length;
 
         const squares = document.querySelectorAll('.grid-square');
 
@@ -209,8 +212,8 @@ const createGame = function () {
         if (vertical === false) {
 
             // check if the ship being placed will fit on the board horizontally.
-            if (x + length -1 >= 7) {
-                startOfShip = [7-length, y];
+            if (x + l -1 >= 7) {
+                startOfShip = [7-l, y];
             }
             
             // starting x and y of ship
@@ -218,7 +221,7 @@ const createGame = function () {
             let shipStartY = startOfShip[1];
     
             // check overlapping 
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < l; i++) {
                 if (user.gameboard.board[shipStartX + i][shipStartY].ship) {
                     e.target.classList.add('invalid');
                     e.target.addEventListener('mouseout', () => {
@@ -232,11 +235,12 @@ const createGame = function () {
             // Create a set of placeables to be added and removed from based on where the mouse is 
             let placeables = new Set();
 
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < l; i++) {
                 squares.forEach(square => { 
 
                     // add to placeables
-                    if (square.dataset.x === shipStartX && square.dataset.y === shipStartY) {
+                    if (square.dataset.x === (shipStartX + i)+"" && square.dataset.y === (shipStartY)+"") {
+                        square.classList.add('placeable');
                         placeables.add(square);
                     }
 
@@ -257,8 +261,8 @@ const createGame = function () {
         // when ship is vertical
 
         // make sure ship to add fits onto board vertically
-        if (y + length-1 >= 7) {
-            startOfShip = [x, 7-length];
+        if (y + l-1 >= 7) {
+            startOfShip = [x, 7-l];
         }
 
         // coords
@@ -266,7 +270,7 @@ const createGame = function () {
         let shipStartY = startOfShip[1];
 
         // check overlapping 
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < l; i++) {
             if (user.gameboard.board[shipStartY+i][shipStartX].ship) {
                 e.target.classList.add('invalid');
                     e.target.addEventListener('mouseout', () => {
@@ -278,11 +282,11 @@ const createGame = function () {
 
         // Create a set of placeables to be added and removed from based on where the mouse is 
         let placeables = new Set();
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < l; i++) {
             squares.forEach(square => { 
 
                 // add to placeables
-                if (square.dataset.x === startingX && square.dataset.y === startingY) {
+                if (square.dataset.x === startingX && square.dataset.y === startingY + i) {
                     placeables.add(square);
                 }
 
@@ -300,16 +304,17 @@ const createGame = function () {
 
     }
 
-    const placeShip = function() {
+    const placeShip = function(e) {
         if (e.target.classList.contains('invalid')) {
             return;
         }
 
         let ship = ships[shipNum];
 
-        let placedShip = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
+       user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
         renderShips(user); 
         shipNum++;
+       
 
         // if all ships have been placed, remove event listeners
         if (shipNum > ships.length) {
@@ -346,7 +351,7 @@ const createGame = function () {
     // TODO: function to start game
 
     const startGame = function() {
-        newGameButton.textContent = "Start Game"
+
         rotateButton.addEventListener('click', () => {
             vertical = vertical? false: true;
         })
