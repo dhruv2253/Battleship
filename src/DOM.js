@@ -115,6 +115,25 @@ const createGame = function () {
 
     }
 
+    const AiTurn = function() {
+        if (whoseTurn == user) {
+            return;
+        }
+        ai.aiAttack();
+        renderShips(user);
+
+        if (user.gameboard.allSunk()) {
+            status.textContent = "Computer Wins!";
+            // end game method
+            endGame(ai);
+        }
+
+        whoseTurn = user;
+
+    }
+
+    
+
 
     
 
