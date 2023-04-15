@@ -142,6 +142,49 @@ const createGame = function () {
 
     }
 
+    const userAttack = function(player) {
+        const opponent = player.opp;
+
+        const oppSquare = opponent == user? '.grid-square': '.ai-grid-square';
+        const squares = document.querySelectorAll(oppSquare);
+        
+        squares.forEach(square => {
+            square.addEventListener('click', (e) => {
+                if (whoseTurn === opponent) {
+                    return;
+                }
+
+                let attack = player.attack(parseInt(square.dataset.x), parseInt(square.dataset.y));
+               
+                // attack hits ship
+                if (attack && opponent.gameboard.board[parseInt(square.dataset.x)][parseInt(square.dataset.y)].ship !== null) {
+                    status.textContent = 'Ship hit!';
+
+                    // if all ships are sunk, end game
+                    if (opponent.gameboard.allSunk()) {
+                        status.textContent = 'You win!';
+                        endGame(user);
+                    }
+                }
+                //attack and there is no hit
+                else if (attack) {
+                    status.textContent = 'Miss!';
+                }
+                else {
+                    status.textContent = 'Already hit, try again';
+                }
+
+                renderShips(opponent);
+
+                if (attack === true) {
+                    whoseTurn = opponent;
+                    AiTurn();
+                } 
+
+            })
+        })
+    }
+
 
     // Method for displaying who won
     const endGame = function(win) {
