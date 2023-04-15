@@ -23,7 +23,10 @@ const createGame = function () {
     let whoseTurn = user;
 
     // ships to be placed on board
-    const ships = [Ship[5], Ship[4], Ship[3]];
+   
+    const ships = [Ship(5), Ship(4), Ship(3)];
+
+    let shipNum = 0;
 
 
 
@@ -145,10 +148,117 @@ const createGame = function () {
         status.textContent = win===user? 'You won!' : "You lost!";
     }
     
+    const shipHover = function(e) {
+        let length = ships[shipNum].length;
+        console.log(ships);
+        const squares = document.querySelectorAll('.grid-square');
+        let x = parseInt(e.target.dataset.x);
+        let y = parseInt(e.target.dataset.y);
+        let startOfShip = [x,y];
+
+        // if ship placement is set to horizontal
+        if (vertical === false) {
+
+            // check if the ship being placed will fit on the board horizontally.
+            if (x + length -1 >= 7) {
+                startOfShip = [7-length, y];
+            }
+            
+            // starting x and y of ship
+            let shipStartX = startOfShip[0];
+            let shipStartY = startOfShip[1];
+    
+            // check overlapping 
+            for (let i = 0; i < length; i++) {
+                if (user.gameboard.board[shipStartX + i][shipStartY].ship) {
+                    e.target.classList.add('invalid');
+                    e.target.addEventListener('mouseout', () => {
+                        e.target.classList.remove('invalid');
+                    })
+                    return;
+                }
+            }
 
 
-    return {createUserBoard, createAiBoard, renderShips, placeAiShips}
+            // Create a set of placeables to be added and removed from based on where the mouse is 
+            let placeables = new Set();
+
+            for (let i = 0; i < length; i++) {
+                squares.forEach(square => { 
+
+                    // add to placeables
+                    if (square.dataset.x === startingX && square.dataset.y === startingY) {
+                        placeables.add(square);
+                    }
+
+                    
+                // remove from placeables and remove placeable class from square
+                    e.target.addEventListener('mouseout', () => {
+                        placeables.forEach(square => {
+                            placeables.delete(square);
+                            square.classList.remove('placeable');
+                        })
+                    })
+                })
+                
+            }
+            return;
+        } 
+        
+        // when ship is vertical
+
+        // make sure ship to add fits onto board vertically
+        if (y + length-1 >= 7) {
+            startOfShip = [x, 7-length];
+        }
+
+        // coords
+        let shipStartX = startOfShip[0];
+        let shipStartY = startOfShip[1];
+
+        // check overlapping 
+        for (let i = 0; i < length; i++) {
+            if (user.gameboard.board[shipStartY+i][shipStartX].ship) {
+                e.target.classList.add('invalid');
+                    e.target.addEventListener('mouseout', () => {
+                        e.target.classList.remove('invalid');
+                    })
+                    return;
+            }
+        }
+
+        // Create a set of placeables to be added and removed from based on where the mouse is 
+        let placeables = new Set();
+        for (let i = 0; i < length; i++) {
+            squares.forEach(square => { 
+
+                // add to placeables
+                if (square.dataset.x === startingX && square.dataset.y === startingY) {
+                    placeables.add(square);
+                }
+
+                // remove from placeables and remove placeable class from square
+                e.target.addEventListener('mouseout', () => {
+                    placeables.forEach(square => {
+                        placeables.delete(square);
+                        square.classList.remove('placeable');
+                    })
+                })
+            })
+            
+        }
+        return;
+
+    }
+
+
+    // TODO: function to start game
+    const startGame = function() {
+        createUserBoard();
+        createAiBoard();
+        
+    }
+
+    return {createUserBoard, createAiBoard, renderShips, placeAiShips, startGame}
 }
-
-
 export default createGame;
