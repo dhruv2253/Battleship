@@ -311,7 +311,7 @@ const createGame = function () {
 
         let ship = ships[shipNum];
 
-       user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
+        let placed = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
         renderShips(user); 
         shipNum++;
        
@@ -327,6 +327,9 @@ const createGame = function () {
 
             rotateButton.style.visiblity = 'hidden';
             beginBattle();
+        }
+        else {
+            status.textContent = `Place your ${ships[shipNum].length} length ship`
         }
 
 
