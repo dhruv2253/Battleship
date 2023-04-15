@@ -149,9 +149,13 @@ const createGame = function () {
     }
     
     const shipHover = function(e) {
+
+        // length of ship using the array of ships that are going to be added to board
         let length = ships[shipNum].length;
-        console.log(ships);
+
         const squares = document.querySelectorAll('.grid-square');
+
+        // get start of ship coordinates
         let x = parseInt(e.target.dataset.x);
         let y = parseInt(e.target.dataset.y);
         let startOfShip = [x,y];
