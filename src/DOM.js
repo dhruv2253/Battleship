@@ -255,11 +255,39 @@ const createGame = function () {
 
     }
 
+    const placeShip = function() {
+        if (e.target.classList.contains('invalid')) {
+            return;
+        }
 
+        let ship = ships[shipNum];
+
+        let placedShip = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, false);
+        renderShips(user); 
+        shipNum++;
+
+        // if all ships have been placed, remove event listeners
+        if (shipNum > ships.length) {
+            const squares = document.querySelectorAll('.grid-square');
+
+            squares.forEach(square => {
+                square.removeEventListener('mouseover', shipHover);
+                square.removeEventListener('click', placeShip);
+            });
+
+            rotateButton.style.visiblity = 'hidden';
+            startGame();
+        }
+
+
+    }
+
+    
     // TODO: function to start game
     const startGame = function() {
         createUserBoard();
         createAiBoard();
+        choosePlaceShip();
         
     }
 
