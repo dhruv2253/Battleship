@@ -116,30 +116,34 @@ const createGame = function () {
     }
 
     const AiTurn = function() {
+        // if turn is users, ignore
         if (whoseTurn == user) {
             return;
         }
+
+        // attack
         ai.aiAttack();
+
+        // rerender ships after attacking
         renderShips(user);
 
+        // if all user ships sunk, computer wins
         if (user.gameboard.allSunk()) {
             status.textContent = "Computer Wins!";
             // end game method
             endGame(ai);
         }
 
+        // change turn
         whoseTurn = user;
 
     }
 
+
+    // Method for displaying who won
     const endGame = function(win) {
         status.textContent = win===user? 'You won!' : "You lost!";
     }
-    
-
-
-    
-
     
 
 
