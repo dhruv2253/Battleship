@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "build": "npx webpack build",
-    "watch": "npx webpack watch"
+    "watch": "npx webpack watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.21.2",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-typescript": "^7.21.4",
+    "gh-pages": "^5.0.0",
     "jest": "^29.5.0",
     "webpack-cli": "^5.0.1"
   },
