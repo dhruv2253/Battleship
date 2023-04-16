@@ -4,7 +4,6 @@ import Player from "./player";
 import Ship from "./ship";
 
 const rotateButton = document.querySelector('.rotate');
-
 const userBoard = document.querySelector('.user-board');
 const aiBoard = document.querySelector('.ai-board');
 const status = document.querySelector('.status');
@@ -23,11 +22,12 @@ const createGame = function () {
     let whoseTurn = user;
 
     // ships to be placed on board
-   
     const ships = [Ship(5), Ship(4), Ship(3)];
 
+    // access a ship in ships at shipNum as index
     let shipNum = 0;
 
+    // rotation
     let vertical = false;
 
 
@@ -71,10 +71,12 @@ const createGame = function () {
     // Place ai ships onto board at set location
     const placeAiShips = function() {
     
+        // create ships
         const aiShip1 = new Ship(3);
         const aiShip2 = new Ship(4);
         const aiShip3 = new Ship(5);
 
+        // place ships
         ai.gameboard.placeShip(0,0, aiShip1);
         ai.gameboard.placeShip(1,4, aiShip2);
         ai.gameboard.placeShip(5,0, aiShip3, true);
@@ -145,18 +147,22 @@ const createGame = function () {
     }
 
     // user attack 
-    const userAttack = function(player, aiPlaying=true) {
+    const userAttack = function(player) {
+        // set opponent to player opponent
         const opponent = player.opp;
         
+        // if opponent is user, select users squares, else ai's squares
         const oppSquare = opponent == user? '.grid-square': '.ai-grid-square';
         const squares = document.querySelectorAll(oppSquare);
         
         squares.forEach(square => {
             square.addEventListener('click', () => {
+                // if opponents turn do nothing
                 if (whoseTurn === opponent) {
                     return;
                 }
 
+                // attack
                 let attack = player.attack(parseInt(square.dataset.x), parseInt(square.dataset.y));
                
                 // attack hits ship
@@ -174,17 +180,16 @@ const createGame = function () {
                     status.textContent = 'Miss!';
                 }
                 else {
+                    // attack is at a spot that has already taken a hit
                     status.textContent = 'Already hit, try again';
                 }
 
+                // rerender opponents board
                 renderShips(opponent);
 
+                // switch turns
                 if (attack === true) {
-                    whoseTurn = opponent;
-                    if (aiPlaying === true) {
-                        AiTurn();
-                    }
-                  
+                    whoseTurn = opponent;   
                 } 
 
             })
@@ -194,9 +199,11 @@ const createGame = function () {
 
     // Method for displaying who won
     const endGame = function(win) {
+        
         status.textContent = win===user? 'You won!' : "You lost!";
         const squares = document.querySelectorAll('.grid-square');
 
+        // remove event listeners from the board since game is over
         squares.forEach(square => {
             square.removeEventListener('mouseover', shipHover);
             square.removeEventListener('click', placeShip);
