@@ -312,17 +312,21 @@ const createGame = function () {
 
     }
 
+    // Place ship on board
     const placeShip = function(e) {
+        // if coord is invalid do not place
         if (e.target.classList.contains('invalid')) {
             return;
         }
 
+        // set ship to place
         let ship = ships[shipNum];
 
-        let placed = user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, vertical);
-        console.log(shipNum);
+        // place ship
+        user.gameboard.placeShip(parseInt(e.target.dataset.x), parseInt(e.target.dataset.y), ship, vertical);
+       
         renderShips(user); 
-        console.log(ships.length)
+       
         shipNum++;
        
 
@@ -330,21 +334,27 @@ const createGame = function () {
         if (shipNum+1 > ships.length) {
             const squares = document.querySelectorAll('.grid-square');
 
+            // Remove listeners
             squares.forEach(square => {
                 square.removeEventListener('mouseover', shipHover);
                 square.removeEventListener('click', placeShip);
             });
 
+            // hide rotate button
             rotateButton.style.visibility = 'hidden';
+
+            
             beginBattle();
         }
         else {
+            // if there are still ships left to place
             status.textContent = `Place your ${ships[shipNum].length} length ship`
         }
 
 
     }
 
+    // Manually place ships onto board
     const choosePlaceShip = function() {
         const squares = document.querySelectorAll(".grid-square");
         squares.forEach(square => {
@@ -356,22 +366,29 @@ const createGame = function () {
         })
     }
 
+    // Begin battle once all ships get placed
     const beginBattle = function() {
         status.textContent = 'Strike the enemy!'
         userAttack(user);
     }
 
-    // TODO: function to start game
 
+    // start game 
     const startGame = function() {
+
+        // hide new game button
         const newGameButton = document.querySelector('.new-game');
         newGameButton.style.visibility = 'hidden';
+
+        // allow rotate button to change rotation
         rotateButton.addEventListener('click', () => {
             vertical = vertical? false: true;
             console.log(vertical);
         })
         
+        // update status
         status.textContent = `Place your ${ships[shipNum].length} length ship`;
+
         placeAiShips();
         choosePlaceShip();
     }
