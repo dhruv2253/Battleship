@@ -44,7 +44,7 @@ const createGame = function () {
                 // set data of grid squares to be equal to the (row, col)
                 gridSquare.dataset.x = cols;
                 gridSquare.dataset.y = rows;
-                gridSquare.textContent = `${cols}, ${rows}`
+              
                 userBoard.appendChild(gridSquare);
             }
         }
@@ -61,7 +61,7 @@ const createGame = function () {
                 // set data of grid squares to be equal to the (row, col)
                 aiGridSquare.dataset.x = cols;
                 aiGridSquare.dataset.y = rows;
-                aiGridSquare.textContent = `${cols}, ${rows}`
+                
 
                 aiBoard.appendChild(aiGridSquare);
             }
@@ -144,6 +144,7 @@ const createGame = function () {
 
     }
 
+    // user attack 
     const userAttack = function(player, aiPlaying=true) {
         const opponent = player.opp;
         
